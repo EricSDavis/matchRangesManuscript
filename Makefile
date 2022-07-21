@@ -1,26 +1,25 @@
 .PHONY: clean
 
 objects :=\
-	data/greeting.rds\
-	plots/example.pdf\
-	tables/example.txt
+	data/benchmarkResults.rds\
+	tables/benchmarkResults.txt\
+	figures/supplementaryFigure1.pdf
 
 all: $(objects)
 
 clean:
 	rm -rf $(objects)
 
-data/greeting.rds:\
-	scripts/utils/sayHello.R\
-	scripts/processing/makeGreeting.R
+data/benchmarkResults.rds:\
+	scripts/makeExampleData.R\
+	scripts/runBenchmark.R
 		mkdir -p data
-		Rscript scripts/processing/makeGreeting.R
+		Rscript scripts/runBenchmark.R
 
-plots/example.pdf\
-tables/example.txt:\
-	scripts/utils/sayHello.R\
-	data/greeting.rds\
-	scripts/analysis/example.R
-		mkdir -p plots tables
-		Rscript scripts/analysis/example.R
+tables/benchmarkResults.txt\
+figures/supplementaryFigure1.pdf:\
+	data/benchmarkResults.rds\
+	scripts/supplementaryFigure1.R
+		mkdir -p tables figures
+		Rscript scripts/supplementaryFigure1.R
 		

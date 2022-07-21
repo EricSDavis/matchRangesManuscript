@@ -3,7 +3,8 @@
 objects :=\
 	data/benchmarkResults.rds\
 	tables/benchmarkResults.txt\
-	figures/supplementaryFigure1.pdf
+	figures/supplementaryFigure1.pdf\
+	figures/figure1.pdf
 
 all: $(objects)
 
@@ -22,4 +23,8 @@ figures/supplementaryFigure1.pdf:\
 	scripts/supplementaryFigure1.R
 		mkdir -p tables figures
 		Rscript scripts/supplementaryFigure1.R
-		
+
+figures/figure1.pdf:\
+	scripts/figure1.R
+		mkdir -p figures
+		Rscript scripts/figure1.R

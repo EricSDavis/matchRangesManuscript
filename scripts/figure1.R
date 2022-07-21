@@ -41,6 +41,7 @@ x <- matchRanges(focal = focal,
 ## Visualize sets --------------------------------------------------------------
 
 set.seed(123)
+pdf(file = "figures/figure1.pdf", width = 8.5, height = 6.5)
 pageCreate(width = 8.5, height = 6.5, showGuides = FALSE, xgrid = 0, ygrid = 0)
 
 ## Define common parameters
@@ -150,3 +151,5 @@ plotGG(plot = plot2,
 plotGG(plot = plot3,
        x = 5.30, y = 4.5, width = 2.75, height = 1.5,
        just = c("left", "top"))
+
+dev.off()

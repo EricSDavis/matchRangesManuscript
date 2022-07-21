@@ -819,6 +819,18 @@
         "withr"
       ]
     },
+    "ggplotify": {
+      "Package": "ggplotify",
+      "Version": "0.1.0",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "acbcedf783cdb8710168aa0edba42ac0",
+      "Requirements": [
+        "ggplot2",
+        "gridGraphics",
+        "yulab.utils"
+      ]
+    },
     "ggridges": {
       "Package": "ggridges",
       "Version": "0.5.3",
@@ -885,6 +897,14 @@
         "tibble",
         "vctrs"
       ]
+    },
+    "gridGraphics": {
+      "Package": "gridGraphics",
+      "Version": "0.5-1",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "5b79228594f02385d4df4979284879ae",
+      "Requirements": []
     },
     "gtable": {
       "Package": "gtable",
@@ -1285,6 +1305,29 @@
         "misc3d"
       ]
     },
+    "plotgardener": {
+      "Package": "plotgardener",
+      "Version": "1.2.7",
+      "Source": "Bioconductor",
+      "git_url": "https://git.bioconductor.org/packages/plotgardener",
+      "git_branch": "RELEASE_3_15",
+      "git_last_commit": "dac134f",
+      "git_last_commit_date": "2022-07-13",
+      "Hash": "d92087083f994533d9ec193fd5ef1926",
+      "Requirements": [
+        "IRanges",
+        "RColorBrewer",
+        "Rcpp",
+        "curl",
+        "data.table",
+        "dplyr",
+        "ggplotify",
+        "plyranges",
+        "purrr",
+        "rlang",
+        "strawr"
+      ]
+    },
     "plyr": {
       "Package": "plyr",
       "Version": "1.8.7",
@@ -1624,6 +1667,22 @@
         "Matrix"
       ]
     },
+    "strawr": {
+      "Package": "strawr",
+      "Version": "0.0.9",
+      "Source": "GitHub",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteRepo": "straw",
+      "RemoteUsername": "EricSDavis",
+      "RemoteRef": "HEAD",
+      "RemoteSha": "f3b0bdd6ffd1d3999d45cb507519125ceaea4427",
+      "RemoteSubdir": "R",
+      "Hash": "5838d057407c4062d41c971e3ab10f7e",
+      "Requirements": [
+        "Rcpp"
+      ]
+    },
     "stringi": {
       "Package": "stringi",
       "Version": "1.7.8",
@@ -1850,6 +1909,14 @@
       "Source": "Repository",
       "Repository": "CRAN",
       "Hash": "458bb38374d73bf83b1bb85e353da200",
+      "Requirements": []
+    },
+    "yulab.utils": {
+      "Package": "yulab.utils",
+      "Version": "0.0.5",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "5727ef3682ea54af05114ef993b99812",
       "Requirements": []
     },
     "zlibbioc": {

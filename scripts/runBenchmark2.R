@@ -10,8 +10,8 @@ source("scripts/makeExampleData.R")
 
 ## Set the points for sample size at
 ## 3 different levels
-lowPoints <- 10^(seq(3, 5, by = 0.25))
-mediumPoints <- 10^(seq(5.25, 6, by = 0.25))
+lowPoints <- 10^(seq(3, 5.5, by = 0.25))
+mediumPoints <- 10^(seq(5.75, 6, by = 0.25))
 highPoints <- 10^(seq(6.25, 7, by = 0.25))
 
 lowResults <-
@@ -188,6 +188,7 @@ lowResults <- setNames(lowResults, lowPoints)
 mediumResults <- setNames(mediumResults, mediumPoints)
 highResults <- setNames(highResults, highPoints)
 
+## Save individual results
 saveRDS(object = lowResults, file = "data/lowResults.rds")
 saveRDS(object = mediumResults, file = "data/mediumResults.rds")
 saveRDS(object = highResults, file = "data/highResults.rds")

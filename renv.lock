@@ -256,6 +256,18 @@
       "Hash": "4bf2c61e656bbc238634c798c208d386",
       "Requirements": []
     },
+    "MatchIt": {
+      "Package": "MatchIt",
+      "Version": "4.4.0",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "e527e54a519487cc3bd8e144ee14a6cb",
+      "Requirements": [
+        "Rcpp",
+        "RcppProgress",
+        "backports"
+      ]
+    },
     "Matrix": {
       "Package": "Matrix",
       "Version": "1.4-1",
@@ -311,6 +323,14 @@
       "Source": "Repository",
       "Repository": "CRAN",
       "Hash": "e9c08b94391e9f3f97355841229124f2",
+      "Requirements": []
+    },
+    "RcppProgress": {
+      "Package": "RcppProgress",
+      "Version": "0.4.2",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "1c0aa18b97e6aaa17f93b8b866c0ace5",
       "Requirements": []
     },
     "Rhtslib": {
@@ -829,6 +849,19 @@
         "ggplot2",
         "gridGraphics",
         "yulab.utils"
+      ]
+    },
+    "ggrepel": {
+      "Package": "ggrepel",
+      "Version": "0.9.1",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "08ab869f37e6a7741a64ab9069bcb67d",
+      "Requirements": [
+        "Rcpp",
+        "ggplot2",
+        "rlang",
+        "scales"
       ]
     },
     "ggridges": {

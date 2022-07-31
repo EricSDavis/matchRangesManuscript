@@ -1,6 +1,8 @@
 ## Load libraries
 library(tidyverse)
 library(ggplot2)
+library(scales)
+library(ggrepel)
 
 ## Load datasets
 results <- readRDS(file = "data/benchmarkResults2.rds")
@@ -33,7 +35,6 @@ ggplot(data = summarizedResults,
                      y = median,
                      color = method,
                      shape = replace)) +
-  scale_x_continuous(trans="log10") +
   geom_line() +
   geom_point(size = 3) +
   guides(color = guide_legend(override.aes = list(shape=NA))) +
@@ -41,8 +42,32 @@ ggplot(data = summarizedResults,
        y = "Median run time (seconds)",
        color = "Matching method",
        shape = "With replacement") +
+  scale_x_log10(breaks = trans_breaks("log10", \(x) 10^x),
+                labels = trans_format("log10", math_format(10^.x))) +
+  expand_limits(x = 10^8) +
+  geom_text_repel(data = 
+                    summarizedResults |>
+                    group_by(method) |>
+                    filter(median == max(median)) |>
+                    filter(method %in% c("matchit", "stratified")),
+                  mapping = aes(x = timePoint, label = method),
+                  show.legend = FALSE,
+                  seed = 123,
+                  hjust = 0) +
+  geom_text_repel(data = 
+                    summarizedResults |>
+                    group_by(method) |>
+                    filter(median == max(median)) |>
+                    filter(!method %in% c("matchit", "stratified")),
+                  mapping = aes(x = timePoint, label = method),
+                  show.legend = FALSE,
+                  seed = 123,
+                  nudge_x = 0.1,
+                  nudge_y = 0.1,
+                  hjust = 0) +
   theme_bw()+
   theme(aspect.ratio = 0.75)
+
 
 ## Save plot
 ggsave(filename = "figures/supplementaryFigure1_v2.pdf",

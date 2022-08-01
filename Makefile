@@ -51,3 +51,9 @@ figures/supplementaryFigure1_v2.pdf:\
 	scripts/supplementaryFigure1_v2.R
 		mkdir -p tables figures
 		Rscript scripts/supplementaryFigure1_v2.R
+	
+figures/supplementaryFigure1_v3.pdf:\
+	data/benchmarkResults2.rds\
+	scripts/supplementaryFigure1_v2.R
+		mkdir -p figures
+		Rscript scripts/supplementaryFigure1_v2.R

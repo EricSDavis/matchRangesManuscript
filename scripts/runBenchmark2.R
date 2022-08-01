@@ -10,8 +10,8 @@ source("scripts/makeExampleData.R")
 
 ## Set the points for sample size at
 ## 3 different levels
-lowPoints <- 10^(seq(3, 5.5, by = 0.25))
-mediumPoints <- 10^(seq(5.75, 6, by = 0.25))
+lowPoints <- 10^(seq(3, 5, by = 0.25))
+mediumPoints <- 10^(seq(5.25, 6, by = 0.25))
 highPoints <- 10^(seq(6.25, 7, by = 0.25))
 
 lowResults <-

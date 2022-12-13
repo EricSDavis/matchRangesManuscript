@@ -11,7 +11,9 @@ objects :=\
 	data/benchmarkResults2.rds\
 	figures/supplementaryFigure1_v2.pdf\
 	tables/benchmarkResults2.txt\
-	figures/supplementaryFigure1_v2.pdf
+	figures/supplementaryFigure1_v2.pdf\
+	figures/supplementaryFigureX.png\
+	figures/supplementaryFigureX.pdf
 
 all: $(objects)
 
@@ -57,3 +59,10 @@ figures/supplementaryFigure1_v3.pdf:\
 	scripts/supplementaryFigure1_v2.R
 		mkdir -p figures
 		Rscript scripts/supplementaryFigure1_v2.R
+
+figures/supplementaryFigureX.png\
+figures/supplementaryFigureX.pdf:\
+	scripts/makeExampleData.R\
+	scripts/compareBalance.R
+		mkdir -p figures
+		Rscript scripts/compareBalance.R

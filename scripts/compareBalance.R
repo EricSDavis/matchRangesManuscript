@@ -1,16 +1,18 @@
 ## Compare "quality" of matches between MatchIt and
 ## matchRanges
 
+## Load required packages
 library(nullranges)
 library(MatchIt)
 library(cobalt)
 library(data.table)
+library(ggplot2)
+library(patchwork)
 source("scripts/makeExampleData.R")
 
 ## Create example dataset
 set.seed(123)
 df <- as.data.table(makeExampleData(total=1e4, ff=0.05))
-df2 <- df
 
 ## MatchIt
 set.seed(123)
@@ -32,87 +34,132 @@ mrd <- matchedData(mr)
 mid <- as.data.table(match.data(mi))
 
 ## Format and combine
-## Add program name
-mrd$program <- "matchRanges"
-mid$program <- "MatchIt"
-
-## Drop weights, distance, & ps columns
+## Drop weights column
 mid[,weights := NULL]
-mid[,distance := NULL]
-mrd[,ps := NULL]
 
 ## Rename columns
-colnames(mid)[1] <- "id"
-colnames(df2)[1] <- "id"
+colnames(mid)[c(1,4)] <- c("id", "ps")
 
 ## Replace TRUE/FALSEf w/ 1/0
 mid$id <- ifelse(mid$id, 1, 0)
-df2$id <- ifelse(df2$id, 1, 0)
 
-## Assemble formatted data for MatchIt
-formatted <- rbind(
-  mid[id == 1, c(.SD, set='focal')],
-  mid[id == 0, c(.SD, set="matched")],
-  df2[id == 0, c(.SD, program="MatchIt", set="pool")]
-)
+## Add set labels
+mid <- mid[id == 0, c(.SD, set="MatchIt")]
 
-## Remove unmatched set
+## Remove unmatched set & change set labels
 mrd <- mrd[set != "unmatched"]
+mrd[set == "matched", set := "matchRanges"]
 
-## Combine mrd and formatted
-data <- rbind(mrd, formatted)
+## Combine matchRanges and MatchIt data
+data <- rbind(mrd, mid)
 
-## Visualize covariate distribution balance
-library(ggplot2)
-ggplot(data, aes())
+## Visualize covariate distribution balance ------------------------------------
 
+## Plot theme
+plotTheme <- theme_bw() +
+  theme(text=element_text(color="black"),
+        axis.text=element_text(color="black"),
+        axis.line=element_line(color="black"),
+        panel.background=element_blank(),
+        panel.grid=element_blank(),
+        panel.border=element_blank())
 
-mid[!mid$feature1,]
+## Continuous covariate example w/density plots
+## TODO: include labels for MatchIt & matchRanges
+p1 <- ggplot(data, aes(x=feature2, color=set)) +
+  stat_density(geom='line', position='identity', na.rm=TRUE) +
+  plotTheme
 
-plotCovariate()
+## Categorical transformation for stacked barplots
+data2 <- data[, .N, by=.(set, feature3)]
+data2 <- data2[, .(feature3, N, "pct"=(N/sum(N)*100)), by=set]
 
-plot(density(mid[!mid$feature1,]$feature2))
-lines(density(df[df$feature1,]$feature2), col="blue")
+p2 <- ggplot(data2, aes(x=set, y=pct, fill=feature3)) +
+  geom_col(position='stack') +
+  geom_text(aes(label=N),
+            position=position_stack(vjust=0.5),
+            color="white") + 
+  labs(y='percentage') +
+  scale_fill_hue(l=70, c=50) +
+  plotTheme
+  
 
-## Love plots to assess balance with cobalt
-bal.tab(mi) |>
-  plot() +
-  ggplot2::xlim(c(-1.5,1.5))
+## Love plots to assess balance with cobalt ------------------------------------
 
-bal.tab(set ~ feature2 + feature3,
-        data=mrd[set %in% c("focal", "pool", "matched")],
-        distance="ps",
-        focal="focal",
-        which.treat="focal",
-        s.d.denom="all") |>
-  plot() +
-  ggplot2::xlim(c(-1.5,1.5))
+## Default pairwise cobalt plot (MatchIt)
+bal_mi <- 
+  bal.tab(set ~ feature2 + feature3,
+          data=rbind(mid, mrd[set %in% c("focal", "pool")]),
+          distance="ps",
+          focal="focal",
+          which.treat="focal",
+          s.d.denom="all")
+ 
+# plot(bal_mi) +
+#   xlim(c(-1.5,1.5))
 
+## Default pairwise cobat plot (matchRanges)
+bal_mr <- 
+  bal.tab(set ~ feature2 + feature3,
+          data=mrd,
+          distance="ps",
+          focal="focal",
+          which.treat="focal",
+          s.d.denom="all")
 
+# plot(bal_mr) +
+#   xlim(c(-1.5,1.5))
 
-## Example violating positivity ------------------------------------------------
-library(nullranges)
+## Custom love plot to put comparisons on same plot
+## Gather covariate balance data from cobalt
+bal <- bal_mr$Pair.Balance$`focal vs. pool`$Balance
+bal <- subset(bal, select=-c(Diff.Adj, Type))
+bal$strata <- rownames(bal)
+bal$Diff.Adj.Mr <- 
+  bal_mr$Pair.Balance$`focal vs. matchRanges`$Balance$Diff.Un
+bal$Diff.Adj.Mi <- 
+  bal_mi$Pair.Balance$`focal vs. MatchIt`$Balance$Diff.Un
+dt <- melt(as.data.table(bal), id="strata")
+colnames(dt)[2:3] <- c("Sample", "Mean Differences")
 
-## Create example dataset
-set.seed(123)
-d <- makeExampleMatchedDataSet(type="data.frame")
+## Reorder factor levels
+dt$strata <-
+  factor(dt$strata, 
+         levels=rev(c("ps", "feature2", "feature3_a",
+                      "feature3_b", "feature3_c", "feature3_d",
+                      "feature3_e")))
 
-## Define focal & pool sets
-## Remove "a" from feature3 in pool set
-focal <- d[d$feature1,]
-pool <- d[!d$feature1 & d$feature3 != "a",]
+levels(dt$Sample) <- c("focal vs. pool",
+                       "focal vs. matchRanges",
+                       "focal vs. MatchIt")
 
-par(mfrow=c(1,2))
-barplot(table(focal$feature3), main="Focal")
-barplot(table(pool$feature3), main="Pool")
-par(mfrow=c(1,1))
+## Custom cobalt plot
+p3 <- ggplot(data=dt, aes(x=`Mean Differences`, y=strata, color=Sample)) +
+  geom_point(size=2.5) +
+  annotate('segment', x=0, xend=0, y=0, yend=Inf) +
+  annotate('segment', x=-Inf, xend=Inf, y=6.5, yend=6.5) +
+  geom_point(size=2.5) +
+  xlim(c(-1.5, 1.5)) +
+  labs(title="Covariate Balance", color="Comparison") +
+  theme_bw() +
+  theme(text=element_text(color="black"),
+        axis.text=element_text(color="black"),
+        panel.grid=element_blank(),
+        axis.title.y=element_blank(),
+        plot.title=element_text(hjust=0.5))
 
-## Matched set by covariate "feature3"
-set.seed(123)
-m <- matchRanges(focal=focal,
-                 pool=pool,
-                 covar=~feature3,
-                 method='stratified',
-                 replace=TRUE)
+## Arrange with patchwork
+figure <- 
+  (p1 / p2 | p3) +
+  plot_annotation(tag_levels='A')
 
-plotCovariate(x=m, covar="feature3")
+## Save plot
+ggsave(filename="figures/supplementaryFigureX.pdf",
+       plot=figure,
+       device="pdf",
+       width=10.5, height=6)
+
+ggsave(filename="figures/supplementaryFigureX.png",
+       plot=figure,
+       device="png",
+       width=10.5, height=6)

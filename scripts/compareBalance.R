@@ -67,7 +67,10 @@ plotTheme <- theme_bw() +
 ## Place text in NPC coordinates
 annotate_npc <- \(label, x, y, just='left', ...) {
   ggplot2::annotation_custom(grid::textGrob(
-    x = unit(x, "npc"), y = unit(y, "npc"), just=just, label = label, ...))
+    x = unit(x, "npc"),
+    y = unit(y, "npc"), 
+    just=just,
+    label = label, ...))
 }
 
 ## Generate ggplot color palette
@@ -81,10 +84,14 @@ cols <- gg_color_hue(4)
 ## Continuous covariate example w/density plots
 p1 <- ggplot(data, aes(x=feature2, color=set)) +
   stat_density(geom='line', position='identity', na.rm=TRUE) +
-  annotate_npc(label="focal", 0.40, 0.95, gp=grid::gpar(col=cols[1])) +
-  annotate_npc(label="matchRanges", 0.45, 0.90, gp=grid::gpar(col=cols[3])) +
-  annotate_npc(label="MatchIt", 0.475, 0.85, gp=grid::gpar(col=cols[2])) +
-  annotate_npc(label="pool", 0.60, 0.45, gp=grid::gpar(col=cols[4])) +
+  annotate_npc(label="focal", 0.40, 0.95,
+               gp=grid::gpar(col=cols[1])) +
+  annotate_npc(label="matchRanges", 0.45, 0.85,
+               gp=grid::gpar(col=cols[3])) +
+  annotate_npc(label="MatchIt", 0.475, 0.75,
+               gp=grid::gpar(col=cols[2])) +
+  annotate_npc(label="pool", 0.60, 0.475,
+               gp=grid::gpar(col=cols[4])) +
   plotTheme +
   theme(legend.position='none')
 
@@ -96,7 +103,8 @@ p2 <- ggplot(data2, aes(x=set, y=pct, fill=feature3)) +
   geom_col(position='stack') +
   geom_text(aes(label=N),
             position=position_stack(vjust=0.5),
-            color="white") + 
+            color="white",
+            size=3) + 
   labs(y='percentage') +
   scale_fill_hue(l=70, c=50) +
   plotTheme

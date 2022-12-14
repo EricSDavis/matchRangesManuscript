@@ -146,13 +146,13 @@
     },
     "GenomeInfoDb": {
       "Package": "GenomeInfoDb",
-      "Version": "1.32.2",
+      "Version": "1.32.3",
       "Source": "Bioconductor",
       "git_url": "https://git.bioconductor.org/packages/GenomeInfoDb",
       "git_branch": "RELEASE_3_15",
-      "git_last_commit": "2e40af3",
-      "git_last_commit_date": "2022-05-09",
-      "Hash": "a6aebe06c23ee8b8dc6f0c607e6af600",
+      "git_last_commit": "fe2a658",
+      "git_last_commit_date": "2022-08-08",
+      "Hash": "55c3f812d79a5321d94b5f3c1178c392",
       "Requirements": [
         "BiocGenerics",
         "GenomeInfoDbData",
@@ -170,13 +170,13 @@
     },
     "GenomicAlignments": {
       "Package": "GenomicAlignments",
-      "Version": "1.32.0",
+      "Version": "1.32.1",
       "Source": "Bioconductor",
       "git_url": "https://git.bioconductor.org/packages/GenomicAlignments",
       "git_branch": "RELEASE_3_15",
-      "git_last_commit": "7a660a9",
-      "git_last_commit_date": "2022-04-26",
-      "Hash": "53befefc544a80e984e1b2cabcd06098",
+      "git_last_commit": "2553580",
+      "git_last_commit_date": "2022-07-21",
+      "Hash": "7d2a019a8c54d79b3455fe320cb11059",
       "Requirements": [
         "BiocGenerics",
         "BiocParallel",
@@ -250,10 +250,10 @@
     },
     "MASS": {
       "Package": "MASS",
-      "Version": "7.3-58",
+      "Version": "7.3-58.1",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "4bf2c61e656bbc238634c798c208d386",
+      "Hash": "762e1804143a332333c054759f89a706",
       "Requirements": []
     },
     "MatchIt": {
@@ -309,10 +309,10 @@
     },
     "RCurl": {
       "Package": "RCurl",
-      "Version": "1.98-1.7",
+      "Version": "1.98-1.8",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "b70bf7bef94b2a3fa09795b0594f3695",
+      "Hash": "19448e3b7f646a99d42660dc025e8f8c",
       "Requirements": [
         "bitops"
       ]
@@ -585,6 +585,21 @@
       "Hash": "3f038e5ac7f41d4ac41ce658c85e3042",
       "Requirements": []
     },
+    "cobalt": {
+      "Package": "cobalt",
+      "Version": "4.4.1",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "0b006bcddf1b9d0e8059090defb74227",
+      "Requirements": [
+        "backports",
+        "crayon",
+        "ggplot2",
+        "gridExtra",
+        "gtable",
+        "rlang"
+      ]
+    },
     "codetools": {
       "Package": "codetools",
       "Version": "0.2-18",
@@ -716,10 +731,10 @@
     },
     "evaluate": {
       "Package": "evaluate",
-      "Version": "0.15",
+      "Version": "0.16",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "699a7a93d08c962d9f8950b2d7a227f1",
+      "Hash": "9a3d3c345f8a5648abe61608aaa29518",
       "Requirements": []
     },
     "fansi": {
@@ -931,6 +946,16 @@
         "vctrs"
       ]
     },
+    "gridExtra": {
+      "Package": "gridExtra",
+      "Version": "2.3",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "7d7f283939f563670a697165b2cf5560",
+      "Requirements": [
+        "gtable"
+      ]
+    },
     "gridGraphics": {
       "Package": "gridGraphics",
       "Version": "0.5-1",
@@ -992,10 +1017,10 @@
     },
     "htmltools": {
       "Package": "htmltools",
-      "Version": "0.5.2",
+      "Version": "0.5.3",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "526c484233f42522278ab06fb185cb26",
+      "Hash": "6496090a9e00f8354b811d1a2d47b566",
       "Requirements": [
         "base64enc",
         "digest",
@@ -1260,10 +1285,10 @@
     },
     "nlme": {
       "Package": "nlme",
-      "Version": "3.1-158",
+      "Version": "3.1-159",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "9469aeaeddf4f48a7ac70877d0b7ba36",
+      "Hash": "4a0b3a68f846cb999ff0e8e519524fbb",
       "Requirements": [
         "lattice"
       ]
@@ -1304,6 +1329,17 @@
         "askpass"
       ]
     },
+    "patchwork": {
+      "Package": "patchwork",
+      "Version": "1.1.1",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "c446b30cb33ec125ff02588b60660ccb",
+      "Requirements": [
+        "ggplot2",
+        "gtable"
+      ]
+    },
     "pillar": {
       "Package": "pillar",
       "Version": "1.8.0",
@@ -1340,13 +1376,13 @@
     },
     "plotgardener": {
       "Package": "plotgardener",
-      "Version": "1.2.7",
+      "Version": "1.2.10",
       "Source": "Bioconductor",
       "git_url": "https://git.bioconductor.org/packages/plotgardener",
       "git_branch": "RELEASE_3_15",
-      "git_last_commit": "dac134f",
-      "git_last_commit_date": "2022-07-13",
-      "Hash": "d92087083f994533d9ec193fd5ef1926",
+      "git_last_commit": "83f73b5",
+      "git_last_commit_date": "2022-08-04",
+      "Hash": "fafa5d9e92225a634220a0db90070a39",
       "Requirements": [
         "IRanges",
         "RColorBrewer",
@@ -1709,9 +1745,9 @@
       "RemoteRepo": "straw",
       "RemoteUsername": "EricSDavis",
       "RemoteRef": "HEAD",
-      "RemoteSha": "f3b0bdd6ffd1d3999d45cb507519125ceaea4427",
+      "RemoteSha": "b57a3a6a97b959e959104be955605cbe74eda1cc",
       "RemoteSubdir": "R",
-      "Hash": "5838d057407c4062d41c971e3ab10f7e",
+      "Hash": "26b863b4e2c7ff576cb72a88420ce7d1",
       "Requirements": [
         "Rcpp"
       ]
@@ -1746,12 +1782,11 @@
     },
     "tibble": {
       "Package": "tibble",
-      "Version": "3.1.7",
+      "Version": "3.1.8",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "08415af406e3dd75049afef9552e7355",
+      "Hash": "56b6934ef0f8c68225949a8672fe1a8f",
       "Requirements": [
-        "ellipsis",
         "fansi",
         "lifecycle",
         "magrittr",
@@ -1922,10 +1957,10 @@
     },
     "xfun": {
       "Package": "xfun",
-      "Version": "0.31",
+      "Version": "0.32",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "a318c6f752b8dcfe9fb74d897418ab2b",
+      "Hash": "0498af3034691dde715dcd86198efe75",
       "Requirements": []
     },
     "xml2": {

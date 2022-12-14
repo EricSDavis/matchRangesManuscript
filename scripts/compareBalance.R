@@ -64,11 +64,29 @@ plotTheme <- theme_bw() +
         panel.grid=element_blank(),
         panel.border=element_blank())
 
+## Place text in NPC coordinates
+annotate_npc <- \(label, x, y, just='left', ...) {
+  ggplot2::annotation_custom(grid::textGrob(
+    x = unit(x, "npc"), y = unit(y, "npc"), just=just, label = label, ...))
+}
+
+## Generate ggplot color palette
+gg_color_hue <- function(n) {
+  hues = seq(15, 375, length = n + 1)
+  hcl(h = hues, l = 65, c = 100)[1:n]
+}
+
+cols <- gg_color_hue(4)
+
 ## Continuous covariate example w/density plots
-## TODO: include labels for MatchIt & matchRanges
 p1 <- ggplot(data, aes(x=feature2, color=set)) +
   stat_density(geom='line', position='identity', na.rm=TRUE) +
-  plotTheme
+  annotate_npc(label="focal", 0.40, 0.95, gp=grid::gpar(col=cols[1])) +
+  annotate_npc(label="matchRanges", 0.45, 0.90, gp=grid::gpar(col=cols[3])) +
+  annotate_npc(label="MatchIt", 0.475, 0.85, gp=grid::gpar(col=cols[2])) +
+  annotate_npc(label="pool", 0.60, 0.45, gp=grid::gpar(col=cols[4])) +
+  plotTheme +
+  theme(legend.position='none')
 
 ## Categorical transformation for stacked barplots
 data2 <- data[, .N, by=.(set, feature3)]

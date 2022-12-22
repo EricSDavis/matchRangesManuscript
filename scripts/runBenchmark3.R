@@ -83,7 +83,7 @@ lowResults <-
                 method = 'nearest',
                 replace = FALSE)
       },
-      times = 1L
+      times = 10L
     )
   })
 
@@ -140,7 +140,7 @@ mediumResults <-
                     method = "rejection",
                     replace = FALSE)
       },
-      times = 1L
+      times = 10L
     )
   })
 
@@ -179,7 +179,7 @@ highResults <-
                     method = "rejection",
                     replace = FALSE)
       },
-      times = 1L
+      times = 10L
     )
   })
 
@@ -187,11 +187,6 @@ highResults <-
 lowResults <- setNames(lowResults, lowPoints)
 mediumResults <- setNames(mediumResults, mediumPoints)
 highResults <- setNames(highResults, highPoints)
-
-## Save individual results
-# saveRDS(object = lowResults, file = "data/lowResults.rds")
-# saveRDS(object = mediumResults, file = "data/mediumResults.rds")
-# saveRDS(object = highResults, file = "data/highResults.rds")
 
 ## Combine
 results <- c(lowResults, mediumResults, highResults)

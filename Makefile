@@ -13,7 +13,8 @@ objects :=\
 	tables/benchmarkResults2.txt\
 	figures/supplementaryFigure1_v2.pdf\
 	figures/supplementaryFigureX.png\
-	figures/supplementaryFigureX.pdf
+	figures/supplementaryFigureX.pdf\
+	data/benchmarkResultsTwoCov.rds
 
 all: $(objects)
 
@@ -66,3 +67,21 @@ figures/supplementaryFigureX.pdf:\
 	scripts/compareBalance.R
 		mkdir -p figures
 		Rscript scripts/compareBalance.R
+
+		
+##############################################
+## Benchmarks on 1 and 2 covariate matching ##
+## with more points for MatchIt 						##
+##############################################
+
+data/benchmarkResultsTwoCov.rds:\
+	scripts/makeExampleData2.R\
+	scripts/runBenchmarkTwoCov.R
+		mkdir -p data
+		Rscript scripts/runBenchmarkTwoCov.R
+		
+data/benchmarkResults3.rds:\
+	scripts/makeExampleData.R\
+	scripts/runBenchmark3.R
+		mkdir -p data
+		Rscript scripts/runBenchmark3.R

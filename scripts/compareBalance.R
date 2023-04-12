@@ -13,6 +13,7 @@ source("scripts/makeExampleData.R")
 ## Create example dataset
 set.seed(123)
 df <- as.data.table(makeExampleData(total=1e4, ff=0.05))
+df$feature3 <- factor(df$feature3)
 
 ## MatchIt
 set.seed(123)
@@ -180,12 +181,12 @@ figure <-
   plot_annotation(tag_levels='A')
 
 ## Save plot
-ggsave(filename="figures/supplementaryFigureX.pdf",
+ggsave(filename="figures/supplementaryFigure3.pdf",
        plot=figure,
        device="pdf",
        width=10.5, height=6)
 
-ggsave(filename="figures/supplementaryFigureX.png",
+ggsave(filename="figures/supplementaryFigure3_1200dpi.png",
        plot=figure,
        device="png",
-       width=10.5, height=6)
+       width=10.5, height=6, dpi=1200)
